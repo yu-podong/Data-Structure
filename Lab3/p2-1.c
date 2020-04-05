@@ -19,7 +19,7 @@ void main(void)
 float sum(float list[], int n)				//인수를 각각 매개 변수 float형 배열과 int형 변수로 받아서 input의 각 원소들의 합을 구하는 함수 sum
 {
 	printf("value of list = %p\n", list);		//list의 값 출력 즉, 인수인 input(= &input[0]) <-배열의 이름 == 배열의 시작주소 == &input[0]
-	printf("address of list = %p\n\n", &list);	//매개변수는 메모리에 할당되기 때문에 list가 위치한 메모리 주소 출력 != input becuase list는 input(= &input[0])을 받는 변수이기 때
+	printf("address of list = %p\n\n", &list);	//매개변수는 메모리에 할당되기 때문에 list가 위치한 메모리 주소 출력 != input becuase list는 input(= &input[0])을 받는 변수이기 때문
 
 	int i;						//지역 변수 i 선언 <- 같은 이름의 지역 변수가 선언되면 지역 변수를 우선으로 생각 즉, 전역 변수 i와 다름
 	float tempsum = 0;				//float형의 변수 선언 후 0으로 초기화
