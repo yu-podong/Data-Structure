@@ -14,7 +14,7 @@ typedef struct{		//struct 키워드를 이용하여 여러 변수를 그룹화�
 
 int main()
 {
-	struct student1 st1 = {'A', 100, 'A'};			//struct student1형 즉, 구조체인 st1 변수를 선언 후 각각의 멤버 변수을 'A', 100, 'A'로 초기화
+	struct student1 st1 = {'A', 100, 'A'};			//struct student1형 즉, 구조체인 st1 변수를 선언 후 각각의 멤버 변수를 'A', 100, 'A'로 초기화
 
 	printf("st1.lastName = %c\n", st1.lastName);		//st1의 멤버 변수 lastName의 값 출력 즉, A 출력
 	printf("st1.studentId = %d\n", st1.studentId);		//st1의 멤버 변수 studentId의 값 출력 즉, 100 출력
