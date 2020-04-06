@@ -3,7 +3,7 @@
 struct student{			//struct 키워드를 이용하여 여러 변수들을 그룹화하는 새로운 자료형 student 정의
 	char lastName[13];	//char형 배열lastName 선언, 13*sizeof(char) =  13 byte
 	int studentId;		//int형 변수 student 선언, sizeof(int) = 4 byte
-	short grade;		//shor형 변수 grade 선언, sizeof(short) = 2 byte
+	short grade;		//short형 변수 grade 선언, sizeof(short) = 2 byte
 };
 
 int main()
