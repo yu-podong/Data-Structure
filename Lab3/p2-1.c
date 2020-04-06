@@ -10,7 +10,7 @@ void main(void)
 	for(i = 0; i < MAX_SIZE; i++)	//0부터 MAX_SIZE-1번째 배열의 원소에 value를 저장하기 위한 for문
 		input[i] = i;		//input의 i번째 원소에 i를 저장
 
-	//for checking call by reference
+	printf("-----------유현진  2019038006-----------\n");
 	printf("address of input = %p\n", input);	//배열의 이름은 배열의 시작주소 즉, 배열의 첫번째 원소의 주소이므로 list[0]의 주소 출력
 
 	answer = sum(input, MAX_SIZE);			//input의 주소와 MAX_SIZE를 받아서 함수 sum을 호출해 input의 원소들의 합을 구한 후 float형으로 반환한 값을 answer에 저장
