@@ -10,7 +10,8 @@ void main()
 	list[1] = 11;	//list의 두번째 요소에 11 저장
 
 	plist[0] = (int *)malloc(sizeof(int));	//plist[0]에 malloc함수를 이용하여 int 크기만큼 할당한 메모리의 주소를 저장
-
+	
+	printf("-----------유현진  2019038006-----------\n");
 	printf("list[0] \t= %d\n", list[0]);			//list[0]에 들어있는 int형 value를 출력
 	printf("address of list \t= %p\n", list);		//배열의 이름은 배열의 시작 주소이므로 list[0]의 주소 출력
 	printf("address of list[0] \t= %p\n", &list[0]);	//list[0]의 주소 출력 == list
