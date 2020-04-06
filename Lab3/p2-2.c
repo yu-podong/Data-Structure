@@ -5,7 +5,8 @@ void print1(int *ptr, int rows);			//int형을 가리키는 포인터 변수와 
 int main()
 {
 	int one[] = {0, 1, 2, 3, 4};			//5개의 int형 value를 갖는 배열 one을 선언하고 각각의 원소를 0,1,2,3,4로 초기화
-
+	
+	printf("-----------유현진  2019038006-----------\n");
 	printf("one     = %p\n", one);			//배열의 이름은 배열의 시작주소이기 때문에 one[0]의 주소 출력
 	printf("&one     = %p\n", &one);		//one의 위치는 one[0]와 동일하기 때문에 one[0]의 주소와 같은 주소 출력
 	printf("&one[0]     = %p\n", &one[0]);		//one[0]의 주소 출력 == one == &one
