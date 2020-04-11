@@ -6,7 +6,7 @@ int** create_matrix(int row, int col);										 //입력한 행과 열을 이�
 int fill_data(int **matrix, int row, int col);									 //해당 행렬을 0~19 중 하나의 숫자로 배열의 원소를 채우는 함수 Fill_data 원형
 void print_matrix(int **matrix, int row, int col);								 //해당 행렬을 출력하는 함수 print_matrix 원형
 int addition_matrix(int **matrix_a, int **matrix_b, int **matrix_sum, int row, int col);			 //matrix_a와 matrix_b 행렬의 합의 결과를 matrix_sum 행렬에 저장하는 함수 addition_matrix 원형
-int subtraction_matrix(int **matrix_a, int **matrix_b, int **matrix_sub, int row, int col);			 //matrix_a와 matrix_b 행렬의 챠의 결과를 matrix_sub 행렬에 저장하는 함수 subtraction_matrix 원형
+int subtraction_matrix(int **matrix_a, int **matrix_b, int **matrix_sub, int row, int col);			 //matrix_a와 matrix_b 행렬의 차의 결과를 matrix_sub 행렬에 저장하는 함수 subtraction_matrix 원형
 int transpose_matrix(int **matrix, int **matrix_t, int row, int col);						 //해당 행렬의 전치행렬을 구해 matrix_t 행렬에 저장하는 함수 transpose_matrix 원형
 int multiply_matrix(int **matrix_a, int **matrix_t, int **matrix_axt, int row, int col);		 	 //matrix_a와 matrix_t 행렬의 곱의 결과를 matrix_axt 행렬에 저장하는 함수 multiply_matrix 원형
 int free_matrix(int **matrix, int row, int col);								 //해당 행렬에 동적으로 할당되었던 메모리를 해제하는 함수 free_matrix 원형
