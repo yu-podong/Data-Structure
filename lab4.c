@@ -58,7 +58,7 @@ int** create_matrix(int row, int col)										 //행렬의 크기를 결정할 
 {
 	int **matrix = NULL;											 //2차원 배열로 동적 할당한 결과값 즉, 할당한 메모리의 주소를 저장하는 이중 포인터 선언 및 NULL로 초기화
 	if(row <= 0 || col <= 0) {										 //만약 행렬의 행 또는 열의 크기가 0 이하 즉, 행렬을 구성할 수 없는 크기이면
-		printf("행 또는 열의 개수를 0 이하로 입력했는지 확인하세요.\n");					//해당 문제의 내용을 출력해주는 error 메세지 출력
+		printf("행 또는 열의 개수를 0 이하로 입력했는지 확인하세요.\n");					 //해당 문제의 내용을 출력해주는 error 메세지 출력
 		return NULL;											 //비정상적인 입력이 들어왔으므로 비정상 종료를 의미하는 NULL을 return
 	}
 	matrix = (int**)malloc(row * sizeof(int *));								 //malloc 함수를 이용하여 행의 크기 row개의 포인터를 할당한 메모리의 주소를 이중 포인터에 저장
@@ -70,7 +70,7 @@ int** create_matrix(int row, int col)										 //행렬의 크기를 결정할 
 int free_matrix(int **matrix, int row, int col)									 //행렬로 사용되는 이중 포인터 1개와 행과 열을 나타낼 int형 변수 2개를 매개변수로 하고 종료된 상태를 나타내기 위해 반환값이 int형인 free_matrix 함수 정의
 {
 	if(matrix == NULL){											 //만약 해당 행렬이 NULL 즉, 할당된 메모리가 없다면 (해제할 메모리 존재 X)
-		printf("해당 행렬은 이미 할당된 메모리가 없습니다.\n");						  //해당 문제의 내용을 출력해주는 error 메세지 출력
+		printf("해당 행렬은 이미 할당된 메모리가 없습니다.\n");						 //해당 문제의 내용을 출력해주는 error 메세지 출력
 		return -1;											 //비정상적인 입력이 들어왔으므로 비정상 종료를 의미하는 -1을 return
 	}
 	for(int i = 0; i< row; i++)										 //행렬의 각 행을 구성했던 포인터들의 메모리를 해제하기 위해 행의 크기만큼 for문 실행
@@ -81,7 +81,7 @@ int free_matrix(int **matrix, int row, int col)									 //행렬로 사용되�
 void print_matrix(int **matrix, int row, int col)								 //행렬로 사용되는 이중 포인터 1개와 행과 열을 나타낼 int형 변수 2개를 매개변수로 하고 반환값이 없는 print_matrix 함수 정의
 {
 	if(matrix == NULL)											 //만약 해당 행렬이 NULL 즉, 동적 할당이 제대로 되지 않은 행렬이라면
-		printf("해당 행렬의 동적 할당을 제대로 하였는지 확인하세요.\n");				       //해당 문제의 내용을 출력해주는 error 메세지 출력
+		printf("해당 행렬의 동적 할당을 제대로 하였는지 확인하세요.\n");				         //해당 문제의 내용을 출력해주는 error 메세지 출력
 	else {													 //해당 행렬이 정상적으로 동적 할당이 되었다면
 		for(int i = 0; i < row; i++) {									 //matrix의 행의 크기가 row이므로 0~row-1번째 행에 접근하기 위한 for문
 			for(int j = 0; j < col; j++)								 //matrix의 열의 크기가 col이므로 0~col-1번째 열에 접근하기 위한 for문
@@ -94,7 +94,7 @@ void print_matrix(int **matrix, int row, int col)								 //행렬로 사용되�
 int fill_data(int **matrix, int row, int col)									 //행렬로 사용되는 이중 포인터 1개와 행과 열을 나타낼 int형 변수 2개를 매개변수로 하고 종료된 상태를 나타내기 위해 반환값이 int형인 fill_matrix 함수 정의
 {
 	if(matrix == NULL) {											 //만약 해당 행렬이 NULL 즉, 동적 할당이 제대로 되지 않은 행렬이라면
-		printf("해당 행렬의 동적 할당을 제대로 하였는지 확인하세요.\n");				       //해당 문제의 내용을 출력해주는 error 메세지 출력
+		printf("해당 행렬의 동적 할당을 제대로 하였는지 확인하세요.\n");				         //해당 문제의 내용을 출력해주는 error 메세지 출력
 		return -1;										         //비정상적인 입력이 들어왔으므로 비정상 종료를 의미하는 -1을 return
 	}
 	for(int i = 0; i < row; i++)										 //matrix의 행의 크기가 row이므로 0~row-1번째 행에 접근하기 위한 for문
@@ -105,7 +105,7 @@ int fill_data(int **matrix, int row, int col)									 //행렬로 사용되는 
 int transpose_matrix(int **matrix, int **matrix_t, int row, int col)						 //행렬로 사용되는 이중 포인터 2개와 행과 열을 나타낼 int형 변수 2개를 매개변수로 하고 종료된 상태를 나타내기 위해 반환값이 int형인 transpose_matrix 함수 정의
 {
 	if(matrix == NULL || matrix_t == NULL){									 //만약 2개의 행렬 중 NULL 즉, 동적 할당이 제대로 되지 않은 행렬이 존재한다면
-		printf("matrix, matrix_t 중 동적 할당이 제대로 되지 않은 행렬이 존재합니다.\n");			//해당 문제의 내용을 출력해주는 error 메세지 출력
+		printf("matrix, matrix_t 중 동적 할당이 제대로 되지 않은 행렬이 존재합니다.\n");			 //해당 문제의 내용을 출력해주는 error 메세지 출력
 		return -1;											 //비정상적인 입력이 들어왔으므로 비정상 종료를 의미하는 -1을 return
 	}
 	for(int i = 0; i < row; i++)										 //matrix의 행의 크기가 row이므로 0~row-1번째 행에 접근하기 위한 for문
@@ -116,18 +116,18 @@ int transpose_matrix(int **matrix, int **matrix_t, int row, int col)						 //행
 int addition_matrix(int **matrix_a, int **matrix_b, int **matrix_sum, int row, int col)				 //행렬로 사용되는 이중 포인터 3개와 행과 열을 나타낼 int형 변수 2개를 매개변수로 하고 종료된 상태를 나타내기 위해 반환값이 int형인 addition_matrix 함수 정의
 {
 	if(matrix_a == NULL || matrix_b == NULL || matrix_sum == NULL){						 //만약 3개의 행렬 중 NULL 즉, 동적 할당이 제대로 되지 않은 행렬이 존재한다면
-		printf("matrix_a, matrix_b, matrix_sum 중 동적 할당이 제대로 되지 않은 행렬이 존재합니다.\n");	//해당 문제의 내용을 출력해주는 error 메세지 출력
+		printf("matrix_a, matrix_b, matrix_sum 중 동적 할당이 제대로 되지 않은 행렬이 존재합니다.\n");	 //해당 문제의 내용을 출력해주는 error 메세지 출력
 		return -1;											 //비정상적인 입력이 들어왔으므로 비정상 종료를 의미하는 -1을 return
 	}
 	for(int i = 0; i < row; i++)										 //두 행렬의 크기가 같으므로 0~row-1번째 행에 접급하기 위한 for문
 		for(int j = 0; j < col; j++)									 //두 행렬의 크기가 같으므로 0~col-1번째 열에 접급하기 위한 for문
-			matrix_sum[i][j] = matrix_a[i][j] + matrix_b[i][j];					 // matrix_a[i][j] + matrix_b[i][j]의 결과값을 matrix_sum[i][j]에 저장
+			matrix_sum[i][j] = matrix_a[i][j] + matrix_b[i][j];					 //matrix_a[i][j] + matrix_b[i][j]의 결과값을 matrix_sum[i][j]에 저장
 	return 1;												 //정상적인 종료를 의미하는 1을 return
 }
 int subtraction_matrix(int **matrix_a, int **matrix_b, int **matrix_sub, int row, int col)			 //행렬로 사용되는 이중 포인터 3개와 행과 열을 나타낼 int형 변수 2개를 매개변수로 하고 종료된 상태를 나타내기 위해 반환값이 int형인 subtraction_matrix 함수 정의
 {
 	if(matrix_a == NULL || matrix_b == NULL || matrix_sub == NULL){						 //만약 3개의 행렬 중 NULL 즉, 동적 할당이 제대로 되지 않은 행렬이 존재한다면
-		printf("matrix_a, matrix_b, matrix_sub 중 동적 할당이 제대로 되지 않은 행렬이 존재합니다.\n");	//해당 문제의 내용을 출력해주는 error 메세지 출력
+		printf("matrix_a, matrix_b, matrix_sub 중 동적 할당이 제대로 되지 않은 행렬이 존재합니다.\n");	 //해당 문제의 내용을 출력해주는 error 메세지 출력
 		return -1;											 //비정상적인 입력이 들어왔으므로 비정상 종료를 의미하는 -1을 return
 	}
 	for(int i = 0; i < row; i++)										 //두 행렬의 크기가 같으므로 0~row-1번째 행에 접급하기 위한 for문
@@ -139,7 +139,7 @@ int multiply_matrix(int **matrix_a, int **matrix_t, int **matrix_axt, int row, i
 {	
 	int temp = 0;												 //두 행렬의 원소의 곱의 합을 저장해 matrix_axt 행렬의 원소를 구성할 temp 선언 및 0으로 초기화
 	if(matrix_a == NULL || matrix_t == NULL || matrix_axt == NULL){						 //만약 3개의 행렬 중 NULL 즉, 동적 할당이 제대로 되지 않은 행렬이 존재한다면
-		printf("matrix_a, matrix_t, matrix_axt 중 동적 할당이 제대로 되지 않은 행렬이 존재합니다.\n");	//해당 문제의 내용을 출력해주는 error 메세지 출력
+		printf("matrix_a, matrix_t, matrix_axt 중 동적 할당이 제대로 되지 않은 행렬이 존재합니다.\n");	 //해당 문제의 내용을 출력해주는 error 메세지 출력
 		return -1;											 //비정상적인 입력이 들어왔으므로 비정상 종료를 의미하는 -1을 return
 	}
 	for(int k = 0; k < row; k++)										 //행렬의 곱일 경우 matrix_axt 행렬의 행의 크기는 matrix_a의 행의 크기와 같으므로 row-1번 돌게 함
