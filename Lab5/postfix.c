@@ -87,24 +87,37 @@ void toPostfix()											//infixExp를 postfix방식 exprsstion으로
 	
 	while (*exp != '\0') {										//*exp가 '\0'이 아닐 경우 즉, infixExp에 들어있는 수식의 끝이 아닐 경우, while문 실행
 		prio = getPriority(*exp);								//수식의 각 operator나 operand의 우선순위를 getPriority 함수를 호출하여 구한 후 prio에 저장
-				
+
 		if (prio == operand)									//prio가 operand의 값을 가진 경우
 			charCat(exp);									//charCat 함수를 호출하여 수식 exp 중 하나의 문자를 postfixExp에 복사
 		else if (prio == lparen)								//prio가 lparen의 값을 가진 경우
 			postfixPush(*exp);								//postfixPush 함수를 호출하여 수식의 토큰을 postfixStack에 삽입
 		else if (prio == rparen) {								//prio가 rparen의 값을 가진 경우
 			for (; postfixStack[postfixStackTop] != '('; ) {				//top의 위치를 옮겨 '('를 만날 떄까지 스택에 들어있는 원소를 pop하기 위한 for문
-				temp = postfixPop();															//postfixPop 함수를 호출하여 postsfixStack 마지막 원소를 temp에 저장
-				charCat(&temp);																	//charCat 함수를 이용하여 temp을 postfixExp 뒤에 이어붙임
+				temp = postfixPop();							//postfixPop 함수를 호출하여 postsfixStack 마지막 원소를 temp에 저장
+				charCat(&temp);								//charCat 함수를 이용하여 temp을 postfixExp 뒤에 이어붙임
 				postfixStack[postfixStackTop + 1] = '\0';				//temp에 들어있던 원소의 위치에 아직 temp이 남아있기 때문에 pop을 구현하기 위해 해당 위치에 '\0' 삽입
 			}
-			postfixStack[postfixStackTop--] = '\0';						//top의 위치에 있는 '('를 삭제하고 top의 위치를 1 감소 
-		}			
+			postfixStack[postfixStackTop--] = '\0';						//top의 위치에 있는 '('를 삭제하고 top의 위치를 1 감소
+		}
+		else if (prio == plus && getPriority(postfixStack[postfixStackTop]) == minus) {		//원래는 우선순위가 같지만 설정한 enum에 의해서 plus가 minus보다 우선순위가 커서 minus가 pop되지 않고 plus가 쌓이게 되는 현상을 막고자하는 조건
+			temp = postfixPop();								//postfixPop 함수를 호출하여 postsfixStack 마지막 원소를 temp에 저장
+			charCat(&temp);									//charCat 함수를 이용하여 temp을 postfixExp 뒤에 이어붙임
+			postfixPush(*exp);								//postfixStack에 마지막 원소가 들어있던 자리에 *exp를 삽입
+		}
+		else if (prio == times && getPriority(postfixStack[postfixStackTop]) == divide) {	//원래는 우선순위가 같지만 설정한 enum에 의해서 times가 divide보다 우선순위가 커서 divide가 pop되지 않고 times가 쌓이게 되는 현상을 막고자하는 조건
+			temp = postfixPop();								//postfixPop 함수를 호출하여 postsfixStack 마지막 원소를 temp에 저장
+			charCat(&temp);									//charCat 함수를 이용하여 temp을 postfixExp 뒤에 이어붙임
+			postfixPush(*exp);								//postfixStack에 마지막 원소가 들어있던 자리에 *exp를 삽입
+		}
 		else if (prio > getPriority(postfixStack[postfixStackTop]) || postfixStackTop == -1)	//prio가 현재 top의 우선순위보다 크거나 top의 위치가 -1일 경우
 			postfixPush(*exp);								//postfixPush 함수를 호출하여 수식의 토큰을 postfixStack에 삽입
 		else if	(prio <= getPriority(postfixStack[postfixStackTop])) {				//prio가 현재 top의 우선순위보다 작거나 같은 경우
-			temp = postfixPop();								//postfixPop 함수를 호출하여 postsfixStack 마지막 원소를 temp에 저장
-			charCat(&temp);									//charCat 함수를 이용하여 temp을 postfixExp 뒤에 이어붙임
+			for (; prio < postfixStack[postfixStackTop]; ) {				//top의 위치를 옮겨 prio가 top에 위치한 연산자의 우선순위보다 높아질 때까지 스택에 들어있는 원소를 pop하기 위한 for문
+				temp = postfixPop();							//postfixPop 함수를 호출하여 postsfixStack 마지막 원소를 temp에 저장
+				charCat(&temp);								//charCat 함수를 이용하여 temp을 postfixExp 뒤에 이어붙임
+				postfixStack[postfixStackTop + 1] = '\0';				//temp에 들어있던 원소의 위치에 아직 temp이 남아있기 때문에 pop을 구현하기 위해 해당 위치에 '\0' 삽입
+			}
 			postfixPush(*exp);								//postfixStack에 마지막 원소가 들어있던 자리에 *exp를 삽입
 		}
 		exp++;											//exp를 증가시켜 수식의 다음 token을 가리킴
