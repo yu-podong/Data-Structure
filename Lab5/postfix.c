@@ -3,10 +3,10 @@
 #include<string.h>
 
 #define MAX_STACK_SIZE 10			//10이라는 수를 MAX_STACK_SIZE라는 기호 상수로 선언
-#define MAX_EXPRESSION_SIZE 20		//20이라는 수를 MAX_EXPRESSION_SIZE라는 기호 상수로 선언
+#define MAX_EXPRESSION_SIZE 20			//20이라는 수를 MAX_EXPRESSION_SIZE라는 기호 상수로 선언
 
 //stack 내에서 우선순위, lparen = 0 가장 낮음 
-typedef enum {				//각 operater와 operand의 우선순위를 표현한 데이터를 열거한 열거형(enum) 정의
+typedef enum {					//각 operater와 operand의 우선순위를 표현한 데이터를 열거한 열거형(enum) 정의
 	lparen = 0,				// ( 왼쪽 괄호 
 	rparen = 9,				// ) 오른쪽 괄호
 	times = 7,				// * 곱셈 
@@ -17,13 +17,13 @@ typedef enum {				//각 operater와 operand의 우선순위를 표현한 데이�
 } precedence;					//해당 열거형을 precedence라는 이름으로 정의
 
 
-char infixExp[MAX_EXPRESSION_SIZE];   	//infix expression을 저장하는 배열
+char infixExp[MAX_EXPRESSION_SIZE];   		//infix expression을 저장하는 배열
 char postfixExp[MAX_EXPRESSION_SIZE];		//postfix로 변경된 문자열을 저장하는 배열
 char postfixStack[MAX_STACK_SIZE];		//postfix로 변환을 위해 필요한 스택
-int evalStack[MAX_STACK_SIZE];		//계산을 위해 필요한 스택
+int evalStack[MAX_STACK_SIZE];			//계산을 위해 필요한 스택
 
 int postfixStackTop = -1;			//postfixStack용 top
-int evalStackTop = -1;			//evalStack용 top
+int evalStackTop = -1;				//evalStack용 top
 int evalResult = 0;				//계산 결과를 저장
 
 void postfixPush(char x)										//postfixStack에 top에 위치한 연산자보다 높은 우선순위를 가지고 있는 연산자를 다음 위치에 삽입하는 함수 정의
@@ -51,7 +51,7 @@ void evalPush(int x)											//token이 operand일 경우 evalStack에 token�
 {
 	evalStack[++evalStackTop] = x;									//현재 top의 위치를 1 증가시킨 자리에 x에 저장된 operand를 스택에 삽입
 }
-void getInfix()											//사용자가 원하는 infix expression을 입력하는 함수 정의
+void getInfix()												//사용자가 원하는 infix expression을 입력하는 함수 정의
 {
 	printf("Type the expression >>> ");								//수식을 입력하라는 message 출력
 	scanf("%s", infixExp);										//계산하고픈 infix방식의 expression을 입력한 후 infixExp에 저장
@@ -68,7 +68,7 @@ precedence getToken(char symbol)									//인자로 반든 문자를 문자형 
 	default: return operand;									//symbol이 위의 경우 이외의 문자 즉, 피연산자이면 operand 값을 출력
 	}
 }
-precedence getPriority(char x)									//인자의 우선순위를 반환하는 함수 정의
+precedence getPriority(char x)										//인자의 우선순위를 반환하는 함수 정의
 {
 	return getToken(x);										//getToken 함수를 호출하여 인자의 우선순위를 알아냄
 }
