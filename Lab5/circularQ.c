@@ -15,6 +15,7 @@ void enQueue(QueueType *cQ, element item);					//rear 위치에 새로운 문자
 void deQueue(QueueType *cQ, element* item);					//front 위치에 있는 문자를 삭제하기 위한 deQueue 함수 원형 선언
 void printQ(QueueType *cQ);							//현재 원형 큐에 들어있는 원소를 출력하는 printQ 함수 원형 선언
 void debugQ(QueueType *cQ);							//현재 원형 큐의 상태를 출력하는 debugQ 함수 원형 선언
+int freeQueue(Queue *cQ);							//원형 큐로 사용하는 cQ의 동적 메모리를 해재시키는 함수 원형 선언
 element getElement();								//사용자가 삽입하길 원하는 문자를 입력할 수 있는 getElement 함수 원형 선언
 
 int main(void)
@@ -49,6 +50,7 @@ int main(void)
 			debugQ(cQ);								//debugQ 함수를 호출하여 현재 원형 큐의 상태에 대한 정보 출력
 			break;									//switch를 빠져나감
 		case 'q': case 'Q':								//사용자가 q or Q를 입력했다면
+			freeQueue(cQ);								//freeQueue 함수를 호출하여 동적 할당한 cQ의 메모리를 해제
 			break;									//switch를 빠져나감
 		default:									//위의 경우 이외의 문자가 입력되었다면
 			printf("\n       >>>>>   Concentration!!   <<<<<     \n");		//error message 출력
@@ -141,5 +143,12 @@ void debugQ(QueueType *cQ)									//원형 큐와 그에 대한 정보를 가�
 		printf("  [%d] = %c\n", i, cQ->queue[i]);					//i번째 index의 원소의 값을 출력
 	}
 	printf("front = %d, rear = %d\n", cQ->front, cQ->rear);					//원형 큐의 front와 rear의 index번호를 출력
+}
+int freeQueue(Queue *cQ)									//원형 큐로 사용되고 있는 구조체 포인터의 메모리를 해제하기 위한 함수 정의
+{
+	if (cQ == NULL)										//만약 cQ의 주소가 NULL 즉, 할당받은 메모리가 없다면
+		return 0;									//free함수를 호출하지 않고 0을 return
+	free(cQ);										//cQ의 주소가 NULL 아님 즉, 동적 메모리를 할당받았다면
+	return 1;										//1을 return
 }
 
