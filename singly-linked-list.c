@@ -16,7 +16,7 @@ headNode* initialize(headNode* h);	//연결 리스트를 초기화하는 initial
 int freeList(headNode* h);		//기존 리스트에 할당되었던 노드들을 초기화하는 freeList 함수 원형 선언
 
 int insertFirst(headNode* h, int key);	//연결 리스트의 첫번째 노드 앞에 새로운 노드를 삽입하는 insertFirst 함수 원형 선언
-int insertNode(headNode* h, int key);	//노드의 data field값을 비교하여 오름차순으로 삽입하는 insertNode 함수 원형 선언
+int insertNode(headNode* h, int key);	//노드의 data field값을 비교하여 key값보다 큰 data를 가진 노드 앞에 삽입하는 insertNode 함수 원형 선언
 int insertLast(headNode* h, int key);	//연결 리스트의 끝에 새로운 노드를 삽입하는 insertLast 함수 원형 선언
 
 int deleteFirst(headNode* h);		//연결 리스트의 첫번째 노드를 제거하는 deleteFirst 함수 원형 선언
@@ -126,42 +126,46 @@ int insertFirst(headNode* h, int key) {					//연결 리스트의 head와 삽입
 
 	return 0;
 }
-int insertNode(headNode* h, int key) {							//연결 리스트의 head와 삽입할 key값을 이용하여 오름차순으로 새로운 노드를 삽입할 함수 정의
-	listNode *search = (listNode *)malloc(sizeof(listNode));			//listNode 크기만큼의 동적 메모리를 할당받아 새로운 노드로 사용
-	listNode *now = h->first;							//head 노드부터 현재 가리키고 있는 노드를 표현하기 위해 haed 노드의 주소 저장
-	search->key = key;								//삽입할 노드의 data field에 key값을 저장
+int insertNode(headNode* h, int key) {					//연결 리스트의 head와 삽입할 key값을 이용하여 key값보다 큰 data를 가진 노드 앞에 삽입하는 함수 정의
+	listNode *search = (listNode *)malloc(sizeof(listNode));	//listNode 크기만큼의 동적 메모리를 할당받아 새로운 노드로 사용
+	listNode *previous = NULL;					//현재 노드의 이전 노드로 사용할 포인터의 값을 NULL로 초기화
+	listNode *now = NULL;						//head 노드부터 현재 가리키고 있는 노드를 표현하기 위한 포인터 선언 및 초기화
+	search->key = key;						//삽입할 노드의 data field에 key값을 저장
 
-	if (now == NULL) {								//만약 head 노드의 주소가 NULL 즉, 연결 리스트에 노드가 존재하지 않다면
-		search->key = key;							//삽입할 노드의 data field에 key값 저장
-		search->link = NULL;							//처음이자 마지막 노드이므로 삽입한 노드의 다음 노드가 없으므로 NULL 저장
-		h->first = search;							//search가 첫번째 노드가 되었으므로 head 노드를 search로 변경
-
-		return key;								//key값 반환
+	if (h == NULL) {						//연결 리스트의 초기화가 일어나지 않아 head의 주소가 NULL이라면
+		printf("This Linked List is not initialized!\n");	//ERROR message 출력
+		return -1;
 	}
-	else {										//head 노드가 존재 즉, 하나 이상의 노드가 들어간 연결 리스트인 경우
-		for (; now != NULL; now = now->link) {					//현재 가리키고 있는 위치가 마지막 노드를 벗어나기 전까지 계속 다음 노드를 가리키기 위한 for문
-			if (now->key <= key) {						//현재 노드의 data보다 삽입하고자 하는 key가 더 크고
-				if (now->link != NULL && key <= now->link->key) {	//현재 노드의 위치가 마지막 노드의 위치가 아니고 현재 위치의 다음 노드의 값보다 삽입하려는 key값이 작다면
-					search->link = now->link;			//삽입할 노드가 현재 노드의 다음 노드를 가리키도록 주소를 저장
-					now->link = search;				//현재 노드가 삽입된 노드의 주소를 저장하여 삽입 노드를 pointing
-					return key;					//key값 반환
-				}
+	else if (h->first == NULL) {					//만약 head 노드의 주소가 NULL 즉, 연결 리스트에 노드가 존재하지 않다면	
+		search->link = NULL;					//처음이자 마지막 노드이므로 삽입한 노드를 다음으로 가리킬 노드가 없으므로 NULL 저장
+		h->first = search;					//search가 첫번째 노드가 되었으므로 head 노드를 search로 변경
+
+		return key;						//key값 반환
+	}
+	else {								//연결 리스트에 노드가 하나 이상이 있을 경우
+		now = h->first;						//head 노드부터 현재 가리키고 있는 노드를 표현하기 위해 haed 노드의 주소 저장
+		for (; now != NULL; previous = now, now = now->link) {	//현재 가리키고 있는 위치가 마지막 노드를 벗어나기 전까지 계속 다음 노드를 가리키기 위한 for문
+			if (now == h->first && key <= now->key) {	//현재 위치가 head 노드와 같고 삽입하고자 하는 key값이 head 노드의 data보다 작다면
+				search->link = now;			//삽입할 노드에 현재 노드의 주소를 저장하여 head 노드를 가리키도록 함
+				h->first = search;			//head 노드에 삽입할 노드의 주소를 저장하여 그 노드를 가리키도록 하여 연결 리스트에 삽입
+
+				return key;				//key값 반환
 			}
-			if (now == h->first && key <= now->key) {			//현재 위치가 head 노드와 같고 삽입하고자 하는 key값이 head 노드의 data보다 작다면
-				search->link = now;					//삽입할 노드에 head 노드의 주소를 저장하여 head 노드를 가리키도록 함
-				h->first = search;					//head 노드에 삽입할 노드의 주소를 저장하여 그 노드를 가리키도록 하여 연결 리스트에 삽입
-				return key;						//key값 반환
-			}
-			if (now->link == NULL && now->key < key) {			//현재 노드의 위치가 마지막 노드이고 그 노드보다 삽입할 key값이 더 큰 값을 가진다면
-				search->link = now->link;				//삽입할 노드가 마지막 노드가 가리키는 주소 즉, NULL을 가리키도록 함
-				now->link = search;					//현재 노드에 삽입할 노드의 주소를 저장하여 삽입할 노드를 pointing
-				return key;						//key값 반환
+			else if (key <= now->key) {			//현재 노드의 data보다 삽입하고자 하는 key가 더 작을 경우
+				search->link = now;			//삽입할 노드가 현재 노드의 앞에 위치해야 하므로 삽입할 노드가 현재 노드의 주소를 저장하여 pointing
+				previous->link = search;		//현재 노드의 이전 노드는 삽입할 노드를 가리켜야 하므로 search의 주소 저장
+
+				return key;				//key값 반환
 			}
 		}
-	}
+		if (previous->key <= key) {				//함수가 return되지 않고 for문을 탈출했다는 것은 key값이 모든 노드의 data보다 클 경우에 해당하는 조건문
+			search->link = now;				//삽입할 노드가 연결 리스트의 마지막에 삽입되야 하므로 현재 NULL값인 now의 주소를 저장
+			previous->link = search;			//현재 노드의 이전 노드는 삽입할 노드를 가리켜야 하므로 search의 주소 저장
 
-}
-int insertLast(headNode* h, int key) {					//연결 리스트의 head와 삽입할 key값을 이용해 새로운 노드를 마지막 노드 뒤에 삽입할 함수 정의
+			return key;					//key값 반환
+		}
+	}
+}int insertLast(headNode* h, int key) {					//연결 리스트의 head와 삽입할 key값을 이용해 새로운 노드를 마지막 노드 뒤에 삽입할 함수 정의
 	listNode *input = (listNode *)malloc(sizeof(listNode));		//listNode 크기만큼의 동적 메모리의 주소를 받아서 새로운 노드로 사용
 	listNode *now = h->first;					//연결 리스트의 head 노드의 주소를 저장하여 첫번째 노드부터 접근하도록 함
 
