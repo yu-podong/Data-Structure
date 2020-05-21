@@ -20,7 +20,7 @@ Node* searchIterative(Node* head, int key);  /* search the node for the key */
 int freeBST(Node* head); /* free all memories allocated to the tree */
 
 /* you may add your own defined functions if necessary */
-
+int count;
 
 int main()
 {
@@ -249,7 +249,7 @@ Node* searchRecursive(Node* ptr, int key)		//동일 key값을 갖는 노드 탐�
 	else if (ptr->key > key)						//key가 현재 노드보다 값이 작을 경우
 		return searchRecursive(ptr->left, key);		//현재 노드의 왼쪽 탐색 시작
 	else											//key가 현재 노드보다 값이 클 경우
-		return searchIterative(ptr->right, key);	//현재 노드의 오른쪽 탐색 시작
+		return searchRecursive(ptr->right, key);	//현재 노드의 오른쪽 탐색 시작
 
 }
 Node* searchIterative(Node* head, int key)		//동일 key값을 갖는 노드 탐색(반복적)
@@ -277,11 +277,25 @@ Node* searchIterative(Node* head, int key)		//동일 key값을 갖는 노드 탐
 }
 int freeBST(Node* head)		//노드 해제	
 {
-	if (head) {				//tree의 head가 NULL이 아닐 경우
-		//inorder 순회 방식을 이용하여 맨 밑의 Leaf Node부터 차례로 노드들을 해제
-		freeBST(head->left);		
-		freeBST(head->right);
-		free(head);			//해당 노드에 할당된 동적 메모리 해제
+	Node *temp = NULL;
+
+	if (count == 0) {		//root노드로 시작 설정
+		temp = head->left;
+		count++;
 	}
+		
+	if (temp) {				//tree의 head가 NULL이 아닐 경우
+		//postorder 순회 방식을 이용하여 맨 밑의 Leaf Node부터 차례로 노드들을 해제
+		freeBST(temp->left);		
+		freeBST(temp->right);
+		if (temp->left != NULL)
+			temp->left = NULL;
+		else if (temp->right != NULL)
+			temp->right = NULL;
+		free(temp);			//해당 노드에 할당된 동적 메모리 해제
+		return 0;
+	}
+	free(head);				//head에 할당된 동적 메모리 해제
+		
 	return 0;
 }
